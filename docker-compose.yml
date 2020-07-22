@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 volumes:
     krb5kdc-data:
 services:
@@ -49,6 +49,7 @@ services:
         ipv4_address: 10.5.0.3
   oracle:
     build: oracle
+    hostname: oracle
     ports:
       - "1521:1521"
       - "5500:5500"
@@ -56,6 +57,7 @@ services:
     environment:
       - KRB5_REALM=EXAMPLE.COM
       - KRB5_KDC=kerberos
+      - KRB5_TRACE=/dev/stdout
     depends_on: 
       - "kerberos"
     networks:
@@ -63,6 +65,7 @@ services:
         ipv4_address: 10.5.0.6
   kerberos:
     build: kdc-server
+    hostname: kerberos
     ports:
       - "99:99"
       - "464:464"

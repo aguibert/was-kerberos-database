@@ -2,7 +2,7 @@ FROM kyleaure/oracle-18.4.0-xe-prebuilt
 
 # Update and install Kerberos (server head)
 RUN yum update -y
-RUN yum -y install krb5-workstation krb5-libs krb5-auth-dialog
+RUN yum -y install krb5-workstation krb5-libs krb5-auth-dialog vim
 
 COPY setup/ /opt/oracle/scripts/setup
 COPY startup/ /opt/oracle/scripts/startup

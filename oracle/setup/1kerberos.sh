@@ -27,6 +27,7 @@ cat <<EOT > /etc/krb5.conf
     renew_lifetime = 7d
     forwardable = true
     rdns = false
+    ccache_type = 4
     default_realm = ${KRB5_REALM}
  
 [realms]

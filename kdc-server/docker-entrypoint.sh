@@ -58,8 +58,8 @@ cat <<EOT > /var/lib/krb5kdc/kdc.conf
         max_life = 12h 0m 0s
         max_renewable_life = 7d 0h 0m 0s
         master_key_type = aes256-cts
-        supported_enctypes = aes256-cts:normal aes128-cts:normal
-        default_principal_flags = +preauth
+        supported_enctypes = aes256-cts:normal aes128-cts:normal aes256-cts-hmac-sha1-96:normal aes128-cts-hmac-sha1-96:normal
+        default_principal_flags = -preauth
     }
     
 [logging]
@@ -96,6 +96,9 @@ EOT
 	
     echo "Creating XE/oracle Account"
     kadmin.local -q "addprinc -pw ${KRB5_PASS} XE/oracle@${KRB5_REALM}"
+
+    echo "Creating oracle Account"
+    kadmin.local -q "addprinc -pw ${KRB5_PASS} oracle@${KRB5_REALM}"
 
     echo "Creating wsadmin Account"
     kadmin.local -q "addprinc -pw ${KRB5_PASS} wsadmin@${KRB5_REALM}"
