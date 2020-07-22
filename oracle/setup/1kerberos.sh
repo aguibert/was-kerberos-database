@@ -22,18 +22,22 @@ echo "Creating Krb5 Client Configuration"
 
 cat <<EOT > /etc/krb5.conf
 [libdefaults]
- dns_lookup_realm = false
- ticket_lifetime = 24h
- renew_lifetime = 7d
- forwardable = true
- rdns = false
- default_realm = ${KRB5_REALM}
+    dns_lookup_realm = false
+    ticket_lifetime = 24h
+    renew_lifetime = 7d
+    forwardable = true
+    rdns = false
+    default_realm = ${KRB5_REALM}
  
- [realms]
- ${KRB5_REALM} = {
-    kdc = ${KRB5_KDC}
-    admin_server = ${KRB5_ADMINSERVER}
- }
+[realms]
+    ${KRB5_REALM} = {
+        kdc = ${KRB5_KDC}:99
+        admin_server = ${KRB5_ADMINSERVER}
+    }
+
+[domain_realm]
+        .example.com = EXAMPLE.COM
+        example.com = EXAMPLE.COM
 EOT
 
 echo "Make configuration and key table accessible"

@@ -2,21 +2,21 @@ version: '3'
 volumes:
     krb5kdc-data:
 services:
-  websphere:
-    build: websphere-traditional
-    ports:
-      - "9043:9043"
-      - "9443:9443"
-      - "9080:9080"
-    environment:
-      - KRB5_REALM=EXAMPLE.COM
-      - KRB5_KDC=kerberos
-      - ENABLE_BASIC_LOGGING=true
-    networks:
-      krbnet:
-        ipv4_address: 10.5.0.2
-    volumes:
-      - ./trace/twas/logs:/opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs
+#  websphere:
+#    build: websphere-traditional
+#    ports:
+#      - "9043:9043"
+#      - "9443:9443"
+#      - "9080:9080"
+#    environment:
+#      - KRB5_REALM=EXAMPLE.COM
+#      - KRB5_KDC=kerberos
+#      - ENABLE_BASIC_LOGGING=true
+#    networks:
+#      krbnet:
+#        ipv4_address: 10.5.0.2
+#    volumes:
+#      - ./trace/twas/logs:/opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs
 #  liberty:
 #    build: liberty
 #    ports:
@@ -29,19 +29,38 @@ services:
 #      - "db2"
 #    volumes:
 #    - /Users/mjswatos/docker/logs:/logs
-  db2:
-    build: db2
+#  db2:
+#    build: db2
+#    ports:
+#      - "50000:50000"
+#    environment:
+#      - KRB5_REALM=EXAMPLE.COM
+#      - KRB5_KDC=kerberos
+#    privileged: True
+#    depends_on: 
+#      - "kerberos"
+#    networks:
+#      krbnet:
+#        ipv4_address: 10.5.0.5
+  client:
+    image: "ubuntu:latest"
+    networks:
+      krbnet:
+        ipv4_address: 10.5.0.3
+  oracle:
+    build: oracle
     ports:
-      - "50000:50000"
+      - "1521:1521"
+      - "5500:5500"
+      - "8080:8080"
     environment:
       - KRB5_REALM=EXAMPLE.COM
       - KRB5_KDC=kerberos
-    privileged: True
     depends_on: 
       - "kerberos"
     networks:
       krbnet:
-        ipv4_address: 10.5.0.5
+        ipv4_address: 10.5.0.6
   kerberos:
     build: kdc-server
     ports:
