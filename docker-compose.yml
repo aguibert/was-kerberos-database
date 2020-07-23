@@ -1,6 +1,4 @@
 version: '2'
-volumes:
-    krb5kdc-data:
 services:
 #  websphere:
 #    build: websphere-traditional
@@ -56,7 +54,7 @@ services:
       - "8080:8080"
     environment:
       - KRB5_REALM=EXAMPLE.COM
-      - KRB5_KDC=kerberos
+      - KRB5_KDC=kerberos:99
       - KRB5_TRACE=/dev/stdout
     depends_on: 
       - "kerberos"
@@ -67,15 +65,13 @@ services:
     build: kdc-server
     hostname: kerberos
     ports:
-      - "99:99"
+      - "99:99/udp"
       - "464:464"
       - "749:749"
     environment:
       - KRB5_REALM=EXAMPLE.COM
       - KRB5_KDC=localhost
       - KRB5_PASS=password
-    volumes:
-      - krb5kdc-data:/var/lib/krb5kdc
     networks:
       krbnet:
         ipv4_address: 10.5.0.9

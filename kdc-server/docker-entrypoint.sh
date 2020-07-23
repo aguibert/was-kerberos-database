@@ -25,6 +25,7 @@ cat <<EOT > /etc/krb5.conf
  renew_lifetime = 7d
  forwardable = true
  rdns = false
+ allow_weak_crypto = true
  default_realm = ${KRB5_REALM}
  
  [realms]
@@ -97,8 +98,11 @@ EOT
     echo "Creating XE/oracle Account"
     kadmin.local -q "addprinc -pw ${KRB5_PASS} XE/oracle@${KRB5_REALM}"
 
-    echo "Creating oracle Account"
-    kadmin.local -q "addprinc -pw ${KRB5_PASS} oracle@${KRB5_REALM}"
+    #echo "Creating oracle Account"
+    #kadmin.local -q "addprinc -pw ${KRB5_PASS} oracle@${KRB5_REALM}"
+
+    echo "Creating oracle kerberos principal"
+    kadmin.local -q "addprinc -pw ${KRB5_PASS} ORACLE@${KRB5_REALM}"
 
     echo "Creating wsadmin Account"
     kadmin.local -q "addprinc -pw ${KRB5_PASS} wsadmin@${KRB5_REALM}"
