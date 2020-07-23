@@ -102,7 +102,7 @@ EOT
     #kadmin.local -q "addprinc -pw ${KRB5_PASS} oracle@${KRB5_REALM}"
 
     echo "Creating oracle kerberos principal"
-    kadmin.local -q "addprinc -pw ${KRB5_PASS} ORACLE@${KRB5_REALM}"
+    kadmin.local -q "addprinc -pw ${KRB5_PASS} ORACLEUSR@${KRB5_REALM}"
 
     echo "Creating wsadmin Account"
     kadmin.local -q "addprinc -pw ${KRB5_PASS} wsadmin@${KRB5_REALM}"

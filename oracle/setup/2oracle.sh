@@ -39,26 +39,11 @@ touch $INITORA
     echo "SQLNET.KERBEROS5_CONF_MIT=TRUE" >> $SQLNETORA
     #Increase inbround connection timeout in-case response from kerberos is slow
     echo "SQLNET.INBOUND_CONNECT_TIMEOUT=120" >> $SQLNETORA
-
-    # logging config
-    echo "TRACE_LEVEL_CLIENT=16" >> $SQLNETORA
-    echo "TRACE_DIRECTORY_CLIENT=/tmp/agglogs" >> $SQLNETORA
-    echo "TRACE_LEVEL_SERVER=16" >> $SQLNETORA
-    echo "TRACE_DIRECTORY_SERVER=/tmp/agglogs" >> $SQLNETORA
-    echo "NAMESCTL.TRACE_LEVEL=ADMIN" >> $SQLNETORA
-    echo "NAMESCTL.TRACE_DIRECTORY=/tmp/agglogs" >> $SQLNETORA
-    echo "TNSPING.TRACE_LEVEL=ADMIN" >> $SQLNETORA
-    echo "TNSPING.TRACE_DIRECTORY=/tmp/agglogs" >> $SQLNETORA
-    echo "TRACE_LEVEL_LISTENER=ADMIN" >> $SQLNETORA
-    echo "TRACE_DIRECTORY_LISTENER=/tmp/agglogs" >> $SQLNETORA
-
     echo "UPDATED SQLNET.ORA"
 
 LISTENERORA="$ORACLE_HOME/network/admin/listener.ora"
 touch $LISTENERORA
     echo "INBOUND_CONNECT_TIMEOUT_LISTENER=110" >> $LISTENERORA
-
-mkdir /tmp/agglogs
 
 # For some reason this oracle image does not allow user 'oracle' to run the oracle process *sigh*
 chmod 6751 $ORACLE_HOME/bin/oracle
